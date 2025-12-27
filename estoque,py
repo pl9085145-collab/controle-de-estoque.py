@@ -1,0 +1,79 @@
+# Sistema de controle de Estoque-loja de eletrônicos
+
+def sistema_estoque():
+    estoque=[] # lista que armazenaráos produtos (cada produto será um dicionário)
+    
+    while True:
+        print("\n---menu de controle de estoque---")
+        print("1. adicionar produto")
+        print("2. atualizar produto")
+        print("3. excluir produto")
+        print("4. visualizar estoque")
+        print("5. sair do sistema")
+
+        opcao=input("escolha uma opção: ")
+        
+        # 1.Adicionar produto
+        if opcao=='1':
+            nome=input("nome do produto: ")
+
+    #verifica se o produto ja existe(para evitar duplicatas, conforme solicitado)
+            existe=False
+            for p in estoque:
+                if p['nome'].lower()==nome.lower():
+                    existe=True
+                    break
+
+                if existe:
+                    print("erro:Este produto já esta cadastrado! ")
+                else:
+                    preco= float(input("preco do produto: "))
+                    quatidade= int(input("Quatidadeem estoque: "))                    
+                #Armazena os dados em um dicionário
+                    produto={"nome":nome,"preco":preco,"quantidade":quatidade}
+                    estoque.append(produto)
+                    print("Produto adicionado com sucesso! ")
+      #2. Atualizar produto 
+        elif opcao =='2':
+         nome_busca=input("Digite o nome do produto que deseja atualizar: ")
+         encontrado=False
+         for p in estoque:
+          if p['nome'].lower()==nome_busca.lower():
+           print(f"Produto encontrado:{p['nome']}")
+          p['preco']=float(input("Novo perço: "))
+          p['quantidade']= int(input("Nova quantidade: "))
+          print("informações atualizada!")
+          encontrado=True
+          break
+         if not encontrado:
+           print("Produto não encontrado.")
+        #3.Excluir produto
+        elif opcao=='3':
+           nome_busca=input("digite o nome do produto que deseja escluir: ")
+           encontrado=False
+           for i, p in enumerate(estoque):
+              if p['nome'].lower()==nome_busca.lower():
+                 estoque.pop(i)
+                 print("Produto removido com sucesso!")
+                 encontrado=True
+                 break 
+              if not encontrado:
+                 print("Produto não encotrado.")
+        #4. Visualizar estoque
+        elif opcao=='4':
+           print ("\n---lista de estoque---")
+           if not estoque:
+              print("o estoque está vazio.")
+           else:
+              for p in estoque:
+                 print(f"Nome:{p['nome']}|Preço:r${p['preco']:.2f}|Qtd:{p['quantedade']}")
+        #5. sair 
+        elif opcao=='5':
+           print("saindo do sistema...Até logo!")
+           break
+
+        else:
+           print("opção inválida. tente noamente!") 
+    # executa o programa
+if __name__=="__main__":
+ sistema_estoque()        
