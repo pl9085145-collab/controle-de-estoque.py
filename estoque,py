@@ -27,12 +27,16 @@ def sistema_estoque():
                 if existe:
                     print("erro:Este produto já esta cadastrado! ")
                 else:
-                    preco= float(input("preco do produto: "))
-                    quatidade= int(input("Quatidadeem estoque: "))                    
-                #Armazena os dados em um dicionário
-                    produto={"nome":nome,"preco":preco,"quantidade":quatidade}
-                    estoque.append(produto)
-                    print("Produto adicionado com sucesso! ")
+                    try:
+                       preco= float(input("preco do produto: "))
+                       quatidade= int(input("Quatidadeem estoque: "))                    
+                   #Armazena os dados em um dicionário
+                       produto={"nome":nome,"preco":preco,"quantidade":quatidade}
+                       estoque.append(produto)
+                       print("Produto adicionado com sucesso! ")
+                except ValueError:
+                      pint("Erro: Preço ou Quatidade Invalida. Use números.")
+
       #2. Atualizar produto 
         elif opcao =='2':
          nome_busca=input("Digite o nome do produto que deseja atualizar: ")
@@ -40,9 +44,12 @@ def sistema_estoque():
          for p in estoque:
           if p['nome'].lower()==nome_busca.lower():
            print(f"Produto encontrado:{p['nome']}")
-          p['preco']=float(input("Novo perço: "))
-          p['quantidade']= int(input("Nova quantidade: "))
-          print("informações atualizada!")
+           try:
+             p['preco']=float(input("Novo perço: "))
+             p['quantidade']= int(input("Nova quantidade: "))
+             print("informações atualizada!")
+         except ValueError:
+            print("Erro nos valores informados. Atualização cancelada.")
           encontrado=True
           break
          if not encontrado:
@@ -57,6 +64,7 @@ def sistema_estoque():
                  print("Produto removido com sucesso!")
                  encontrado=True
                  break 
+
               if not encontrado:
                  print("Produto não encotrado.")
         #4. Visualizar estoque
